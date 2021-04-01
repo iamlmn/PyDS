@@ -46,12 +46,18 @@ def binary_search_recursive(array, key, left, right):
 if __name__ == '__main__':
     a = [84,  40, 87, 12, 21, 10]
     print("********* Linear search ***********")
+    print("Time Complexity : O((1)")
+    print("Space Complexity : O((n) ")
     print(linear_search(a, 21))
     print(linear_search(a, 211))
     x = [1, 2, 3, 5, 21, 63, 66]
     print("********* Binary search - iterative **********")
+    print("Time Complexity : O((1)")
+    print("Space Complexity : O((log(n)) ")
     print(binary_search_iterative(x, 21))
     print(binary_search_iterative(x, 211))
     print("********** Binary search - recursive **********")
+    print("Time Complexity : O((log(n))  - recursion uses that much memory")
+    print("Space Complexity : O((log(n))  ")
     print(binary_search_recursive(x, 21, 0, len(x) - 1))
     print(binary_search_recursive(x, 211, 0, len(x) - 1))
