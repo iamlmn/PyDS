@@ -139,6 +139,8 @@ def do_shell_sort(array, order_type='asc'):
 ## Merge sort
 
 def do_mergesort(array, left, right, order_type = 'asc'):
+    ''' 
+    '''
 
     # if order_type == 'asc':
     if (left < right) :
@@ -187,6 +189,44 @@ def merge(array, left, mid, right,order_type):
 
     # print(barray)
 
+## Quick sort.
+
+def partition(array, low, high, order_type):
+    i = low + 1
+    j = high
+    pivot = array[low]
+
+    while True:
+
+        if order_type == 'desc':
+            while i <= j and array[i] >= pivot:
+                i += 1
+            while i <= j and array[j] < pivot:
+                j=j - 1
+        else:
+            while i <= j and array[i] <= pivot:
+                i += 1
+            while i <= j and array[j] > pivot:
+                j=j - 1            
+
+        if i <= j:
+            array[i], array[j] = array[j], array[i]
+        else:
+            break
+    array[low], array[j] = array[j], array[low]
+    return j # new pivot
+
+
+def do_quicksort(array, low, high, order_type='asc'):
+    if low < high:
+        pi = partition(array, low, high, order_type=order_type)
+        do_quicksort(array, low, pi - 1)
+        do_quicksort(array, pi + 1, high)
+
+        
+    
+
+
 
 if __name__ == '__main__':
     # Playing with Selection sort.
@@ -219,8 +259,6 @@ if __name__ == '__main__':
     print(f'After desc bubble sort : {array}')
 
 
-
-
     # Playing with Shell sort.
     array = [1 , 54, 23, 53, 12, 5]
     print("\n ************ Shell Sort *************")
@@ -229,8 +267,6 @@ if __name__ == '__main__':
     print(f'After asc shell sort : {array}')
     do_bubble_sort(array, order_type='desc')
     print(f'After desc shell sort : {array}')
-
-
 
 
     # Playing with Merge sort.
@@ -243,7 +279,16 @@ if __name__ == '__main__':
     print(f'After desc merge sort : {array}')
 
 
+    # Playing with quick sort
+    array = [1 , 54, 23, 53, 12, 5]
+    print("\n ************ Quick Sort *************")
+    print("Unstable sorting")
+    print("Complexity : Time : n log(n) \n Space : o(n log (n)")
+    print(f'Original array {array}')
+    do_quicksort(array, 0, len(array) - 1)
+    print(f'After asc quick sort : {array}')
+    do_quicksort(array, 0, len(array)- 1, order_type='desc')
+    print(f'After desc merge sort : {array}')
 
-    
 
 
