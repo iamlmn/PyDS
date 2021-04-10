@@ -42,7 +42,6 @@ def binary_search_recursive(array, key, left, right):
             return binary_search_recursive(array, key, mid + 1, right)
     
 
-
 if __name__ == '__main__':
     a = [84,  40, 87, 12, 21, 10]
     print("********* Linear search ***********")
