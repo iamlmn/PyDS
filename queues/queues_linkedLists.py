@@ -57,8 +57,6 @@ class QLinkedLists:
 
 
 if __name__ == '__main__':
-
-
     Q = QLinkedLists()
     Q.enqueue(5)
     Q.enqueue(15)
