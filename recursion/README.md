@@ -1,7 +1,9 @@
 # Recursion
 
 Complexity can solved using Recurrence relation , ->  Subsitituion or 
-Types of recursion 
+
+
+## Types of recursion 
 
 1. Tail & head.
     - If all the things need to be executed are above recursive call - Tail recursion
