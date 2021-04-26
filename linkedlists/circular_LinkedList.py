@@ -117,11 +117,9 @@ class CircularLinkedList:
         while i < position - 1:
             p = p.next
             i += 1 
-
         e = p.next.element
         p.next = p.next.next
         self.size -= 1
-
         return e
 
     def search(self, element):
@@ -136,7 +134,6 @@ class CircularLinkedList:
                 return i
             p = p.next
             i += 1
-
         return -1
 
 

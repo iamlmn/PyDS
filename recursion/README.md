@@ -13,6 +13,7 @@ Complexity can solved using Recurrence relation , ->  Subsitituion or
 
     Tail recursion output : 1, 4, 9, 16
     Head recursion output : 16, 9, 4, 1
+    
 2. Tree Recursion.
  - When a function calls itself more than once
 
