@@ -13,13 +13,19 @@
 # Explanation: The first two elements after removing the duplicates will be [2, 11].
 
 
-def removeDuplicates(nums):
+def removeDuplicates(array):
     nexti = 1
+    i = 1
 
-    for i in range(1, len(nums)):
-        if nums[nexti- 1] != nums[i]:
-            nums[nexti] = nums[i]
+    while i < len(array):
+        if array[nexti - 1] != array[i]:
+            array[nexti] = array[i]
             nexti += 1
+        i += 1
+
+    return nexti
+
+    
     
 
     return nexti

@@ -18,7 +18,7 @@ def getTargetSum(nums, target):
     i = 0
     j = len(nums) - 1
     while i <j:
-        if nums[i] + nums[j] == target:
+        if (nums[i] + nums[j]) == target:
             return [i, j]
 
         if nums[i] + nums[j] > target:

@@ -23,43 +23,61 @@
 # Explanation: After applying backspaces the strings become "xywrrmp" and "xywrrmp" respectively.
 
 
+def compareString(stringInput1, stringInput2):
+    index1 = len(stringInput1) - 1
+    index2 = len(stringInput2) - 1
 
-def applyBackspace(stringInput):
-    # prev = 0
-    i = 0
-    high = len(stringInput) - 1
-    while i <= high:
-        # prev = i - 1
-        if stringInput[i] == '#':
-            stringInput = stringInput[:i - 1] + stringInput[i + 1:]
-            high -= 2
-            i -= 1
+    while index1 >=0 or index2 >= 0:
+        i1 = getNextValidCharacter(stringInput1, index1)
+        i2 = getNextValidCharacter(stringInput2, index2)
+
+        if i1<0 and i2 <0:
+            return True
+
+        if i1 < 0 or i2 < 0:
+            return False
+
+        if stringInput1[i1] != stringInput2[i2]:
+            return False
+
+        index1 = i1 -1
+        index2 = i2 - 1
+
+    return True
+
+
+
+
+def getNextValidCharacter(string1, index):
+    backSpaceCount = 0
+    while index >= 0:
+        if string1[index] == '#':
+            backSpaceCount += 1
+        elif backSpaceCount > 0:
+            backSpaceCount -= 1
         else:
-            i += 1
-    return stringInput[:high + 1]
-
-
-def checkString(string1, string2):
-    return applyBackspace(string1) == applyBackspace(string2)
+            break
+        index -= 1
+    return index
 
 
 if __name__ == '__main__':
     str1="xy#z"
     str2="xzz#"
-    print(f"{str1} == {str2} ? : {checkString(str1 , str2)}")
+    print(f"{str1} == {str2} ? : {compareString(str1 , str2)}")
 
 
     str11="xy#z"
     str21="xyz#"
-    print(f"{str11} == {str21} ? : {checkString(str11 , str21)}")
+    print(f"{str11} == {str21} ? : {compareString(str11 , str21)}")
 
     str21="xp#"
     str22="xyz##"
-    print(f"{str21} == {str22} ? : {checkString(str21 , str22)}")
+    print(f"{str21} == {str22} ? : {compareString(str21 , str22)}")
 
 
     str31="xywrrmp"
     str32="xywrrmu#p"
-    print(f"{str31} == {str32} ? : {checkString(str31 , str32)}")
+    print(f"{str31} == {str32} ? : {compareString(str31 , str32)}")
             
 

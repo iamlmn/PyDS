@@ -14,8 +14,9 @@ def sortedArray(array):
     i = 0
     j = len(array) - 1
     sortedArray = []
+
     while i <= j:
-        if abs(array[i])  >= abs(array[j]):
+        if abs(array[i]) >= abs(array[j]):
             sortedArray.append(array[i] * array[i])
             i += 1
         else:
@@ -23,7 +24,6 @@ def sortedArray(array):
             j -= 1
 
     return sortedArray[:: -1]
-
 
 
 if __name__ == '__main__':

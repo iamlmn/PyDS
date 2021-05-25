@@ -43,6 +43,7 @@ def longestSubStringAfterReplacement(stringInput, k):
 
     return (outputString)
 
+
 if __name__ == '__main__':
     string1 = 'aabccbb'
     string2 = 'abbcb'

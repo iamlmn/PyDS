@@ -29,12 +29,11 @@ def concatenateWords(stringInput, words):
         wordFrequency[i] += 1
 
 
-    for i in range(len(stringInput) - totalLen + 1):
-
+    for i in range(0, len(stringInput) - totalLen + 1):
         wordSeen = {}
-        for j in range(0, wordsCount):
-            word = stringInput[i + j * wordLength: i + j * wordLength + wordLength]
-
+        for j in range(wordsCount):
+            word = stringInput[ i + j*wordLength:i + j*wordLength + wordLength]
+        
             if word not in wordFrequency:
                 break
 
@@ -42,21 +41,13 @@ def concatenateWords(stringInput, words):
                 wordSeen[word] = 0
             wordSeen[word] += 1
 
-            if wordSeen[word] > wordFrequency[word]: # break if there are more occurance of a word than required.
-                break # 
-
-
-            if j + 1 == wordsCount:
+            if wordSeen[word] > wordFrequency[word]:
+                break
+            
+            if j + 1== wordsCount :
                 outputIndices.append(i)
 
-
-
     return outputIndices
-
-
-        
-
-
 
 
 if __name__ == '__main__':

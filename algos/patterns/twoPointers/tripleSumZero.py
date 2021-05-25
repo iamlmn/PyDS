@@ -12,28 +12,38 @@
 # Explanation: There are two unique triplets whose sum is equal to zero.
 
 
+def search_pair(array, targetSum, left, triplets):
+    right = len(array) - 1
 
+    while left < right:
+        currentSum = array[left] + array[right]
+
+        if currentSum == targetSum:
+            triplets.append([-targetSum, array[left], array[right]])
+            left += 1
+            right -= 1
+
+            while left < right and array[left] == array[left - 1]:
+                left += 1
+
+            while left < right and array[right] == array[right + 1]:
+                right -= 1
+        elif targetSum > currentSum:
+            left += 1
+
+        else:
+            right -= 1
+
+
+            
 def myTripleSumZero(array):
     array.sort()
     triplets = []
-    for i in range(len(array) - 2):
-
-        left = i + 1
-        right = len(array) - 1
-
-        while left < right:
-            
-            x = [array[i], array[left], array[right]]
-            currentSum = sum(x)
-            if currentSum == 0 and x not in triplets: 
-                triplets.append(x) 
-                left += 1
-                right -= 1
-            elif currentSum < 0:
-                left += 1
-            elif currentSum > 0:
-                right -= 1
-
+    
+    for i in range( len(array)):
+        if i > 0 and array[i] == array[i - 1]:
+            continue
+        search_pair(array, -array[i], i + 1, triplets)
 
     return triplets
 

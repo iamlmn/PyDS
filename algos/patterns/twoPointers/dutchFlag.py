@@ -17,25 +17,22 @@ def dutchFlag(array):
     low = 0
     high = len(array) - 1
     i = 0
-    while (i <= high):
+
+    while i <= high :
         if array[i] == 0:
-            array[i], array[low] = array[low], array[i]
+            array[i], array[low] = array[low], array[i] 
             i += 1
             low += 1
         elif array[i] == 1:
             i += 1
+
         else:
-            array[i], array[high] = array[high], array[i]
+            array[high], array[i] = array[i], array[high]
             high -= 1
-
-
-    
-
-
 
 
 if __name__ == '__main__':
     array = [1, 0, 2, 1, 0]
     print(array)
-    print(dutchFlag(array))
+    # print(dutchFlag(array))
     print(array)
