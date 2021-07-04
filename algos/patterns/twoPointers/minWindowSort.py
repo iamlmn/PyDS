@@ -73,7 +73,9 @@ if __name__ == '__main__':
     list2 = [1, 3, 2, 0, -1, 7, 10]
     list3 = [1, 2, 3]
     list4 = [3, 2, 1]
+    list5 = [1, 2, 3, 3, 3]
     print(checkSorted(list1))
     print(checkSorted(list2))
     print(checkSorted(list3))
     print(checkSorted(list4))
+    print(checkSorted(list5))
