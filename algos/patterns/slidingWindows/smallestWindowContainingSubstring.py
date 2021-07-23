@@ -19,34 +19,42 @@
 
 
 def findSmallestWindow(stringInput, subString):
+    '''
+    create a counter of chars in substring and store it as hash map.
+    keep increasing window end untill everythhing becomes zero and start shrinking from left untill everything in the counter/hash has values as 0.
+    '''
     start = 0
-    outputString = ''
     charFrequency = {}
+    minLength = len(stringInput)
+    matched = 0
+    outputString = ""
 
     for i in range(len(subString)):
         if subString[i] not in charFrequency:
             charFrequency[subString[i]] = 0
         charFrequency[subString[i]] += 1
-    # print(charFrequency)
-    i = 0
-    flag = 0
-    for i in range(len(stringInput)): # and 
-        if stringInput[i] in charFrequency:
-            charFrequency[stringInput[i]] -= 1
-            if charFrequency[stringInput[i]] == 0:
-                flag += 1
 
-        while flag == len(charFrequency):
-            print(stringInput[start: i + 1])
-            if len(outputString) > len(stringInput[start: i + 1]) or outputString == '':
-                outputString = stringInput[start: i + 1]
+    for i in range(len(stringInput)):
+        cChar = stringInput[i]
+        if cChar in charFrequency:
+            charFrequency[cChar] -= 1
+            
+            if charFrequency[cChar] == 0:
+                matched += 1
 
-            if stringInput[start] in charFrequency:
-                charFrequency[stringInput[start]] += 1
-                if charFrequency[stringInput[start]] > 0:
-                    flag -= 1
+        while matched == len(charFrequency):
+            # found all chars, now try shrinking the window.
+            rChar = stringInput[start]
             start += 1
-
+            if rChar in charFrequency:
+                if charFrequency[rChar] == 0:
+                    matched -= 1
+                charFrequency[rChar] += 1
+        
+            minLength = min(minLength, i - start + 1)
+            outputString = stringInput[start - 1: i + 1]
+            
+            
     return outputString
 
 
@@ -55,6 +63,6 @@ if __name__ == '__main__':
     substring = 'abc'
     string2 = 'abdabca'
     string3 = 'adcad'
-    print(f"Sup : {findSmallestWindow(string1, substring)}")
-    print(f"Sup : {findSmallestWindow(string2, substring)}")
-    print(f"Sup : {findSmallestWindow(string3, substring)}")
+    print(f"aabdec, abc : {findSmallestWindow(string1, substring)}")
+    print(f"abdabca, abc : {findSmallestWindow(string2, substring)}")
+    print(f"adcad, abc : {findSmallestWindow(string3, substring)}")

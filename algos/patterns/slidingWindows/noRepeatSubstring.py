@@ -20,23 +20,18 @@
 
 def noRepeatString(stringInput):
     start = 0
-    end = 0
     outputString = ''
     charFrequency = {}
-
+    maxSubstringLength = 0
     for i in range(len(stringInput)):
-        if stringInput[i] not in charFrequency:
-            charFrequency[stringInput[i]] = 0
-        charFrequency[stringInput[i]] += 1
+        cChar =  stringInput[i]
+        if cChar in charFrequency:
+            start = max(start, charFrequency[cChar] + 1)
+        charFrequency[cChar] = i
+        maxSubstringLength = max(maxSubstringLength, i - start + 1)
 
-        while sum(charFrequency.values()) > len(charFrequency):
-            charFrequency[stringInput[start]] -= 1
-            if charFrequency[stringInput[start]] == 0:
-                del charFrequency[stringInput[start]]
-                if len(outputString) < len(stringInput[start: i]):
-                    outputString = stringInput[start: i]
-            start += 1
-    return len(outputString)
+        
+    return maxSubstringLength
 
 
 if __name__ == '__main__':

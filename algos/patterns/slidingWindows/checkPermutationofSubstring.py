@@ -34,24 +34,42 @@
 
 
 def checkPattern(stringInput, patternInput):
-    start = 0
-    charFrequency = {}
-    for i in range(len(patternInput)):
-        if patternInput[i] not in charFrequency:
-            charFrequency[patternInput[i]] = 0
-        charFrequency[patternInput[i]] += 1
+    '''
+    TC: O(N + M)
+    Space: O(M)
+    1. Caluclate patterFrequency
+    2. Got though string and decrease frequency. if fre = 0, have a counter. if it reaches num of distinct chars in pattern string it means every thing is present.
+    3. If window len goes beyond patternwindows, start ++ , if its present in windwo, make sure to decrement matched counter and increased counter value in frequency.
+    '''
+    start, matched, windowLength, patternFrequency = 0, 0, len(patternInput), {}
+    # set pattern frequency.
+    for i in range(windowLength):
+        if patternInput[i] not in patternFrequency:
+            patternFrequency[patternInput[i]] = 0
+        patternFrequency[patternInput[i]] += 1
 
-    print(charFrequency)
     for i in range(len(stringInput)):
-        if stringInput[i] in charFrequency:
-            charFrequency[stringInput[i]] -= 1
-        if i >= len(patternInput) - 1:
-            if sum(charFrequency.values()) == 0:
-                return True, start, i
-            if stringInput[start] in charFrequency:
-                charFrequency[stringInput[start]] += 1
+        cChar = stringInput[i]
+        if cChar in patternFrequency:
+            patternFrequency[cChar] -= 1
+            if patternFrequency[cChar] == 0:
+                matched += 1
+
+        if matched == len(patternFrequency):
+            return True
+        
+        if i >= windowLength - 1:
+            rChar = stringInput[start]
             start += 1
+            if rChar in patternFrequency:
+                if patternFrequency[rChar] == 0:
+                    matched -= 1
+                patternFrequency[rChar] += 1
     return False
+                
+
+
+
 
         
 

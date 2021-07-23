@@ -20,25 +20,27 @@ def findLongSubString(stringArray, k):
     Space: O(k) where we store K + 1 characters.
     '''
 
-    maxSubstringLength = 0
+
+    longestSubstring = 0
     start = 0
-    charFrequency = {}
+    rollinhHash = dict()
+
     for i in range(len(stringArray)):
-        
-        if stringArray[i] not in charFrequency:
-            charFrequency[stringArray[i]] = 0
-        charFrequency[stringArray[i]] += 1
 
+        # if len(rollinhHash) < k:
+        if stringArray[i] not in rollinhHash:
+            rollinhHash[stringArray[i]] = 0
+        rollinhHash[stringArray[i]] += 1
 
-        while len(charFrequency) > k:
-            charFrequency[stringArray[start]] -= 1
-            if charFrequency[stringArray[start]] == 0:
-                del charFrequency[stringArray[start]]
-            start += 1
+        while len(rollinhHash) > k:
+            toRemove = stringArray[start]
+            rollinhHash[toRemove] -= 1
+            if rollinhHash[toRemove] == 0:
+                del rollinhHash[toRemove]
+            start += 1       
+        longestSubstring = max(longestSubstring, i - start + 1)
 
-        maxSubstringLength = max(maxSubstringLength, i - start + 1)
-
-    return maxSubstringLength
+    return longestSubstring
 
 if __name__ =='__main__':
     string1 = "araaci"

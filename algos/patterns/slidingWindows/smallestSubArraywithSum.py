@@ -27,31 +27,19 @@ def smallestSubArray(array, s):
 
 
     start = 0
-    minWindow = len(array) + 1
-    currentSum = 0
+    cs = 0
+    import math
+    minWindow = math.inf
+
     for i in range(len(array)):
-        currentSum += array[i]
+        cs += array[i]
 
-        while currentSum >= s:
-
+        while cs >= s:  # this cant be if since we might have to remove multiple number if the last numbwer added is very large.
             minWindow = min(minWindow, i - start + 1)
-            currentSum -= array[start]
+            cs -= array[start]
             start += 1
 
-    
-    if minWindow > len(array):
-        return 0
-
-    return minWindow
-
-
-    
-
-    
-    if minWindow is None:
-        return 0
-
-    return minWindow
+    return minWindow if minWindow != math.inf else 0
 
 
 

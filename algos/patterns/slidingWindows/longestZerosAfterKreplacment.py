@@ -17,25 +17,38 @@ def longestSubStringAfterReplacement(listInput, k):
     time complexity : O(n)
     space : O(1)
     '''
-    start = 0
-    end = 0
-    maxLength = 0
-    nOnes = 0
+    maxLength,numOnes, start = 0, 0, 0
+    
+    
     for i in range(len(listInput)):
         if listInput[i] == 1:
-            nOnes += 1
-        if (i - start + 1 - nOnes > k):
+            numOnes += 1
+        if (i - start + 1 - numOnes) > k:
             if listInput[start] == 1:
-                nOnes -= 1
+                numOnes -= 1
             start += 1
-        maxLength = max(maxLength, i - start + 1)
 
+        maxLength = max(maxLength, i - start + 1)
     return maxLength
 
+def longestSubStringAfterReplacement_2(listInput, k):
+    maxLength,numZeros, start = 0, 0, 0
 
+    for i in range(len(listInput)):
+        if listInput[i] == 0:
+            numZeros += 1
+
+        if numZeros > k:
+            if listInput[start] == 0:
+                numZeros -= 1
+            start += 1
+
+        maxLength = max(maxLength, i - start + 1)
+    return maxLength
     
 if __name__ == '__main__':
     list1 = [0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1]
     list2 = [0, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1]
+    longestSubStringAfterReplacement = longestSubStringAfterReplacement_2
     print(f"longestSubStringAfterReplacement{longestSubStringAfterReplacement(list1, 2)}")
     print(f"longestSubStringAfterReplacement{longestSubStringAfterReplacement(list2, 3)}")

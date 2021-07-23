@@ -19,23 +19,22 @@ def maxSubarrayOfSizeK(array, k):
     Time complexity : O(N)
     Space Complexity : O(1)
     '''
-    currentSum = 0
-    maxSum = array[0]
     start = 0
+    currentSum = 0
+    maxSum = 0
+    
+    for end in range(len(array)):
+        if end < k:
+            currentSum += array[end]
 
-    if len(array) < k:
-        return 0
-    for i in range(len(array)):
-        currentSum += array[i]
-     
-
-        if i > k -1:
+        if end >= k:
+            currentSum += array[end]
             currentSum -= array[start]
             start += 1
-            maxSum = max(currentSum,maxSum)
-
+            maxSum = max(maxSum, currentSum)
 
     return maxSum
+        
 if __name__ == '__main__':
     array = [2, 1, 5, 1, 3, 2]
     array2 = [2, 3, 4, 1, 5]

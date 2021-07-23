@@ -14,8 +14,46 @@
 # Output: [3]
 # Explanation: The only substring containing both the words is "catfox".
 
-
 def concatenateWords(stringInput, words):
+    '''
+    TC :
+    SC :
+    1. Get the length of one word from words, and the windowlength will be num_of_words * len of char.
+    2. now within this window length check for every 3 char if it fits any words and remove them. if everything is removed save the start index. 
+    '''
+    outputIndices = []
+    matched = 0
+    lenghtOfWord = len(words[0])
+    wordCount = len(words)
+    windowSize = lenghtOfWord * len(words)
+    wordFrequency = {}
+    for i in range((len(stringInput) - wordCount*lenghtOfWord + 1)):
+        wordSeen= set()
+        j = i
+        while j <j + wordCount*lenghtOfWord:
+            if stringInput[j:j + lenghtOfWord] in words and stringInput[j:j + lenghtOfWord] not in wordSeen:
+                wordSeen.add(stringInput[j:j + lenghtOfWord])
+                j += lenghtOfWord
+            else:
+                break
+
+            if len(wordSeen) == len(words):
+                outputIndices.append(i)        
+    return outputIndices
+            
+
+
+
+if __name__ == '__main__':
+    string1 = 'catfoxcat'
+    words = ['cat', 'fox']
+    string2 = 'catcatfoxfox'
+
+    print(f" {concatenateWords(string1, words)}")
+    print(f" {concatenateWords(string2, words)}")
+
+
+def backup_concatenateWords(stringInput, words):
     
     outputIndices = []
     wordFrequency = {}
@@ -48,12 +86,3 @@ def concatenateWords(stringInput, words):
                 outputIndices.append(i)
 
     return outputIndices
-
-
-if __name__ == '__main__':
-    string1 = 'catfoxcat'
-    words = ['cat', 'fox']
-    string2 = 'catcatfoxfox'
-
-    print(f" {concatenateWords(string1, words)}")
-    print(f" {concatenateWords(string2, words)}")

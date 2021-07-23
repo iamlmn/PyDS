@@ -25,24 +25,21 @@ def longestSubStringAfterReplacement(stringInput, k):
     outputString = ''
     maxLength = 0
     maxRepeatLetterCount = 0
-    for i in range(len(stringInput)):
-        if stringInput[i] not in charFrequency:
-            charFrequency[stringInput[i]] = 0
-        charFrequency[stringInput[i]] += 1
-        maxRepeatLetterCount = max(maxRepeatLetterCount, charFrequency[stringInput[i]])
-        if (i - start  + 1 - maxRepeatLetterCount > k) :
-            charFrequency[stringInput[start]] -= 1
-            if charFrequency[stringInput[start]] == 0:
-                del charFrequency[stringInput[start]]
+    for i in range(0, len(stringInput)):
+        cChar = stringInput[i]
+        if cChar not in charFrequency:
+            charFrequency[cChar]=  0
+        charFrequency[cChar] += 1
 
+        maxRepeatLetterCount = max(maxRepeatLetterCount,  charFrequency[cChar])
+
+        if (i - start + 1 - maxRepeatLetterCount) > k:
+            rChar = stringInput[start]
+            charFrequency[rChar] -= 1
             start += 1
-        
-        if len(stringInput[start: i + 1]) > len(outputString):
-            outputString = stringInput[start: i + 1]
-
-
-    return (outputString)
-
+        maxLength = max(maxLength, i - start + 1)
+    
+    return maxLength
 
 if __name__ == '__main__':
     string1 = 'aabccbb'

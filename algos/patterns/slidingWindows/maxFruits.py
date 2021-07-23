@@ -22,21 +22,27 @@ This can be done if we start with the second letter: ['B', 'C', 'B', 'B', 'C']
 
 def getMaxFruits(array):
     '''
+    TC : O(N)
+    SC: O(N)
     '''
 
+    maxFruits = 0
     fruitFrequency = {}
     start = 0
-    maxFruits = 0
 
     for i in range(len(array)):
-        if array[i] not in fruitFrequency:
-            fruitFrequency[array[i]] = 0
-        fruitFrequency[array[i]] += 1
-        while (len(fruitFrequency) > 2):
-            fruitFrequency[array[start]] -= 1
-            if fruitFrequency[array[start]] == 0:
-                del fruitFrequency[array[start]] 
+        cFruit = array[i]
+        if cFruit not in fruitFrequency:
+            fruitFrequency[cFruit] = 0
+        fruitFrequency[cFruit] += 1
+
+        while len(fruitFrequency) > 2:
+            rFruit = array[start]
+            fruitFrequency[rFruit] -= 1
+            if fruitFrequency[rFruit] == 0:
+                del fruitFrequency[rFruit]
             start += 1
+
         maxFruits = max(maxFruits, i - start + 1)
     return maxFruits
 
@@ -47,4 +53,4 @@ if __name__ == '__main__':
     fruit2 = ['A', 'B', 'C', 'B', 'B', 'C']
 
     print(f" Max fruits from {fruit1} are {getMaxFruits(fruit1)} ")
-    print(f" Max fruits from {fruit1} are {getMaxFruits(fruit2)} ")
+    print(f" Max fruits from {fruit2} are {getMaxFruits(fruit2)} ")

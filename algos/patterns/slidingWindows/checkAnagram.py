@@ -23,30 +23,40 @@
 
 
 def checkAnagram(stringInput, patternInput):
-    start = 0
-    startIndices = []
-    patternFrequency = {}
+    '''
+    TC : O(N + M)
+    SC : O(M)
 
-    for i in patternInput:
-        if i not in patternFrequency:
-            patternFrequency[i] = 0
-        patternFrequency[i] += 1
-    backUpFrequency = patternFrequency
-    
-    for i in range(len(stringInput)):
+    1. Store patternInput counter to a hashmap.
+    2. Loop through string input with window len = len(patterinput) and keep decrementing counter of chars if it is present in counter hashmap.
+    3. if everything is 0 store start to resultant array and Continue.
+    '''
+    start, matched, startIndices, patternFrequency = 0, 0, [], {}
+    windowLength = len(patternInput)
+    for i in range(windowLength):
+        if patternInput[i] not in patternFrequency:
+            patternFrequency[patternInput[i]] = 0
+        patternFrequency[patternInput[i]] += 1
         
-        if stringInput[i] in patternFrequency:
-            patternFrequency[stringInput[i]] -= 1
-        if i >= len(patternInput) - 1:
-            if list(set(patternFrequency.values())) == [0]:
-                startIndices.append(start)
-
-            if stringInput[start] in patternFrequency:
-                patternFrequency[stringInput[start]] += 1
+    for i in range(len(stringInput)):
+        cChar = stringInput[i]
+        if cChar in patternFrequency:
+            patternFrequency[cChar] -= 1
+            if patternFrequency[cChar] == 0:
+                matched += 1
+        
+        if matched == len(patternFrequency):
+            startIndices.append(start)
+        
+        if i >= windowLength - 1:
+            rChar = stringInput[start]
             start += 1
+            if rChar in patternFrequency:
+                if patternFrequency[rChar] == 0:
+                    matched -= 1
+                patternFrequency[rChar] += 1
 
     return startIndices
-
 
 
 if __name__ == '__main__':

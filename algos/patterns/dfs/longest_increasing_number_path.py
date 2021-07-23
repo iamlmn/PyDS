@@ -16,22 +16,24 @@ Example 2:
 op : 4 [1,2,3,4]
 '''
 
-def validate(mat, i, j, visited, parent):
-    if (i < 0 or j < 0 or j >= len(mat[0]) or i >= len(mat) or (i,j) in visited) or mat[i][j] == '#' or mat[i][j] <= parent:
+def validate(mat, i, j, parent, dp):
+    if i < 0 or j < 0 or j >= len(mat[0]) or i >= len(mat) or mat[i][j] == '#' or mat[i][j] <= parent:
         return False
     return True
 
-def dfs(mat, i, j, parent,  visited):
+def dfs(mat, i, j, parent, dp):
     '''
     Ask my neighbors whats their max number of inc paths from them and choose the best/max direction from their results.
     '''
-    if not validate(mat, i, j, visited, parent):
+    if not validate(mat, i, j, parent, dp):
         return 0
+    if dp[i][j] != -1:
+        return dp[i][j] + 1
     temp = mat[i][j]
     mat[i][j] = '#'  # setting to visited
-    res = max( dfs(mat, i + 1, j, temp, visited),dfs(mat, i - 1, j, temp, visited), dfs(mat, i , j + 1, temp, visited), dfs(mat, i, j - 1, temp, visited))
+    dp[i][j] = max(dfs(mat, i + 1, j, temp, dp),dfs(mat, i - 1, j, temp, dp), dfs(mat, i , j + 1, temp, dp), dfs(mat, i, j - 1, temp, dp))
     mat[i][j] = temp # change back to original value while backtracking.
-    return res + 1
+    return dp[i][j] + 1
 
 if __name__ == '__main__':
     mat0 = [[1]]
@@ -44,15 +46,18 @@ if __name__ == '__main__':
     inputs = [[[]], mat0, mat1, mat2, mat3, mat4, mat5]
     outputs = [0, 1, 3, 4, 4, 4, 10, 4]
     for l, mat in enumerate(inputs):
+        dp = [[-1 for i in range(len(mat) + 1)] for j in range(len(mat[0]))] # store max paths from each point. 
         res, o = [], 0
         visited = set()
         for i in range(len(mat)):
             for j in range(len(mat[0])):
 
                 if (i,j) not in visited:
-                    res.append(dfs(mat, i, j, -1, visited))
+                    res.append(dfs(mat, i, j, -1, dp))
+        print(res)
         if res:
             o = max(res)
+
         assert o == outputs[l]
         print("Max increasing path in ", mat, o)
     
