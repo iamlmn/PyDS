@@ -1,3 +1,4 @@
+from collections import deque
 class GraphDs:
     def __init__(self, vertices):
         self._vertices = vertices
@@ -100,6 +101,41 @@ class GraphDs:
         Sc: O(1)
         '''
         print(self.adjMat)
+
+    def bfs(self, s):
+        '''
+        Return an array after traversing using BFS.
+        TC: O(N)
+        SC : O(N)
+        '''
+        # i = s
+        q = deque()
+        q.append(s)
+        visited = set()
+        res = []
+        while q:
+            n = len(q)
+            for _ in range(n):
+                r = q.popleft()
+                res.append(r)
+                visited.add((r))
+                for c in range(self._vertices):
+                    if self.adjMat[r][c] != 0 and c not in visited:
+                        q.append(c)
+                        visited.add(c)
+        return res
+
+    def dfs(self, r, visited=set()):
+        
+        if r in visited:
+            return 
+        visited.add(r)
+        print(r)
+        for c in range(self._vertices):
+            if self.adjMat[r][c] != 0 and c not in visited:
+                self.dfs(c, visited)
+
+
 
 
 if __name__ == '__main__':
@@ -206,5 +242,30 @@ if __name__ == '__main__':
     print("Out-Degree", dwg.outdegree(2))
     dwg.remove_edges(1,2)
     print('Edge between 1 - 2 exists? : ', dwg.exist_edge(1,2))
+    print("BFS Traversal result", dwg.bfs(0))
     print(" -------------------------------------------")
 
+    print("BFS example")
+    G = GraphDs(7)
+    G.insert_edge(0, 1)
+    G.insert_edge(0, 5)
+    G.insert_edge(0, 6)
+    G.insert_edge(1, 0)
+    G.insert_edge(1, 2)
+    G.insert_edge(1, 5)
+    G.insert_edge(1, 6)
+    G.insert_edge(2, 3)
+    G.insert_edge(2, 4)
+    G.insert_edge(2, 6)
+    G.insert_edge(3, 4)
+    G.insert_edge(4, 2)
+    G.insert_edge(4, 5)
+    G.insert_edge(5, 2)
+    G.insert_edge(5, 3)
+    G.insert_edge(6, 3)
+    print('Edges:')
+    G.edges()
+    print('BFS:', G.bfs(0))
+    print('DFS:') 
+    G.dfs(1)
+    
